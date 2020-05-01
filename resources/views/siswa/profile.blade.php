@@ -5,6 +5,16 @@
     <!-- MAIN CONTENT -->
     <div class="main-content">
         <div class="container-fluid">
+            @if (session('sukses'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('sukses') }}
+                </div>  
+            @endif
+            @if (session('error'))
+                <div class="alert alert-danger" role="alert">
+                    {{ session('error') }}
+                </div>  
+            @endif
             <div class="panel panel-profile">
                 <div class="clearfix">
                     <!-- LEFT COLUMN -->
@@ -49,11 +59,15 @@
                     <!-- END LEFT COLUMN -->
                     <!-- RIGHT COLUMN -->
                     <div class="profile-right">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                            Tambah Nilai
+                        </button> 
                         {{-- Table Striped --}}
                         <div class="panel">
                             <div class="panel-heading">
                                 <h3 class="panel-title">Mata Pelajaran</h3>
                             </div>
+                            
                             <div class="panel-body">
                                 <table class="table table-striped">
                                     <thead>
@@ -86,5 +100,45 @@
     </div>
     <!-- END MAIN CONTENT -->
 </div>
-    
+   
+{{-- modal --}}
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Tambah Nilai</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        <form action="/siswa/{{ $siswa->id }}/addnilai" method="POST" enctype="multipart/form-data">
+            {{ csrf_field() }}
+            <div class="form-group{{ $errors->has('mata_pelajaran') ? ' has-error' : ''}}">
+                <label for="mapel">Mata Pelajaran</label>
+                <select name="mapel" class="form-control" id="mapel">
+                    @foreach ($matapelajaran as $mp)
+                        <option value="{{ $mp->id }}">{{ $mp->nama }}</option>                        
+                    @endforeach
+                </select>
+                @if ($errors->has('mata_pelajaran'))
+                    <span class="help-block">{{ $errors->first('mata_pelajaran') }}</span>
+                @endif
+            </div>
+            <div class="form-group{{ $errors->has('nilai') ? ' has-error' : ''}}">
+                <label for="exampleInputEmail1">Nilai</label>
+                <input type="text" name="nilai" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Nilai" value="{{ old('nilai') }}">                      
+                @if ($errors->has('nilai'))
+                    <span class="help-block">{{ $errors->first('nilai') }}</span>                
+                @endif
+            </div>            
+    </div>
+    <div class="modal-footer">    
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    </div>
+    </div>
+    </div>
+
 @stop
