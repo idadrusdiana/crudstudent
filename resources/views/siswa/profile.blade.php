@@ -1,5 +1,9 @@
 @extends('layouts.master')
 
+@section('header')
+    <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+@stop
+
 @section('content')
 <div class="main">
     <!-- MAIN CONTENT -->
@@ -76,6 +80,7 @@
                                             <th>Nama</th>
                                             <th>Semester</th>
                                             <th>Nilai</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -84,7 +89,8 @@
                                                 <td>{{ $mapel->kode }}</td>
                                                 <td>{{ $mapel->nama }}</td>
                                                 <td>{{ $mapel->semester }}</td>
-                                                <td>{{ $mapel->pivot->nilai }}</td>
+                                                <td><a href="#" class="nilai" data-type="text" data-pk="{{ $mapel->id }}" data-url="/api/siswa/{{ $siswa->id }}/editnilai" data-title="Masukkan Nilai">{{ $mapel->pivot->nilai }}</a></td>
+                                                <td><a href="/siswa/{{$siswa->id}}/{{$mapel->id}}/deletenilai" class="btn btn-danger btn-sm" onclick="return confirm('Yakin mau dihapus ?')">Delete</a></td>
                                             </tr> 
                                         @endforeach
                                         
@@ -147,6 +153,7 @@
 @stop
 
 @section('footer')
+    <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script>
         Highcharts.chart('chartNilai', {
@@ -183,6 +190,10 @@
                 data: {!! json_encode($data) !!}
 
             }]
+        });
+
+        $(document).ready(function() {
+            $('.nilai').editable();
         });
     </script>
     {{--{!! !!} merupakan echo special, fungsinya supaya tidak merubah format json ke format html     --}}
