@@ -37,11 +37,11 @@
                                 {{ csrf_field() }}
 								<div class="form-group">
 									<label for="signin-email" class="control-label sr-only">Email</label>
-									<input name="email" type="email" class="form-control" id="signin-email" value="samuel.gold@domain.com" placeholder="Email">
+									<input name="email" type="email" class="form-control" id="signin-email" placeholder="Email">
 								</div>
 								<div class="form-group">
 									<label for="signin-password" class="control-label sr-only">Password</label>
-									<input name="password" type="password" class="form-control" id="signin-password" value="thisisthepassword" placeholder="Password">
+									<input name="password" type="password" class="form-control" id="signin-password" placeholder="Password">
 								</div>								
 								<button type="submit" class="btn btn-primary btn-lg btn-block">LOGIN</button>								
 							</form>
