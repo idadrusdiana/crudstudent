@@ -30,6 +30,8 @@ Route::group(['middleware' => ['auth','checkRole:admin']], function()
         Route::post('/siswa/{id}/addnilai','SiswaController@addnilai');
         Route::get('/siswa/{id}/{idmapel}/deletenilai','SiswaController@deletenilai');
         Route::get('/guru/{id}/profile', 'GuruController@profile');
+
+        Route::get('/dashboard','DashboardController@index');
     }
 );
 
