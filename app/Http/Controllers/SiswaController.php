@@ -91,9 +91,8 @@ class SiswaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Siswa $siswa)
     {
-        $siswa = Siswa::find($id);
         return view('siswa/edit',['siswa'=>$siswa]);
     }
 
@@ -104,17 +103,15 @@ class SiswaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {        
-        $siswa = Siswa::find($id);
+    public function update(Request $request, Siswa $siswa)
+    {          
         $siswa->update($request->all());
         if($request->hasFile('avatar')){
             $request->file('avatar')->move('images/',$request->file('avatar')->getClientOriginalName());
             $siswa->avatar = $request->file('avatar')->getClientOriginalName();
             $siswa->save();
         }
-        return redirect('/siswa')->with('sukses','Data Berhasil diupdate');
-        
+        return redirect('/siswa')->with('sukses','Data Berhasil diupdate');        
     }
 
     /**
@@ -123,16 +120,15 @@ class SiswaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        $siswa = Siswa::find($id);
+    public function destroy(Siswa $siswa)
+    {        
         $siswa->delete($siswa);
-        return redirect('/siswa')->with('sukses','Data Berhasil dihapus');
-        
+
+        return redirect('/siswa')->with('sukses','Data Berhasil dihapus');        
     }
 
-    public function profile($id){
-        $siswa = Siswa::find($id);        
+    public function profile(siswa $siswa)
+    {                
         $matapelajaran = Mapel::all();
         
         //menyiapkan data untuk chart
@@ -150,8 +146,8 @@ class SiswaController extends Controller
         return view('siswa.profile',['siswa' => $siswa,'matapelajaran' => $matapelajaran,'categories'=>$categories,'data'=>$data]);
     }
 
-    public function addnilai(Request $request,$idsiswa){
-        $siswa = Siswa::find($idsiswa);
+    public function addnilai(Request $request, Siswa $siswa)
+    {        
         //code untuk mendeteksi bahwa mata peljaran sudah ada
         if($siswa->mapel()->where('mapel_id',$request->mapel)->exists()){
             return redirect('siswa/'.$idsiswa.'/profile')->with('error','Data mata pelajaran sudah ada.');
@@ -161,9 +157,8 @@ class SiswaController extends Controller
         return redirect('siswa/'.$idsiswa.'/profile')->with('sukses','Data nilai berhasil ditambahkan');
     }
 
-    public function deletenilai($idsiswa,$idmapel)
-    {
-        $siswa = Siswa::find($idsiswa);        
+    public function deletenilai(Siswa $siswa,$idmapel)
+    {               
         $siswa->mapel()->detach($idmapel);
 
         return redirect()->back()->with('sukses','Data berhasil di hapus');
