@@ -35,7 +35,7 @@ class SiswaController extends Controller
     public function create(Request $request)
     {           
         $this->validate($request,[
-            'nama_depan'=> 'required|min:5',
+            'nama_depan'=> 'required|min:4',
             'nama_belakang' => 'required',
             'email'     => 'required|email|unique:users',
             'jenis_kelamin' => 'required',
@@ -128,7 +128,7 @@ class SiswaController extends Controller
     }
 
     public function profile(siswa $siswa)
-    {                
+    {                       
         $matapelajaran = Mapel::all();
         
         //menyiapkan data untuk chart
