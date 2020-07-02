@@ -12,7 +12,10 @@
 */
 
 Route::get('/', 'SiteController@home');
+Route::get('/register', 'SiteController@register');
+Route::post('/postregister', 'SiteController@postregister');
 Route::get('/about', 'SiteController@about');
+Route::get('/terimakasih', 'SiteController@terimakasih');
 
 Route::get('/login','AuthController@index')->name('login');
 Route::post('/postlogin','AuthController@postlogin');
