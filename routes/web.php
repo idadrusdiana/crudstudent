@@ -35,6 +35,8 @@ Route::group(['middleware' => ['auth','checkRole:admin']], function()
         Route::get('/siswa/exportpdf','SiswaController@exportPdf');
         Route::get('/guru/{id}/profile', 'GuruController@profile');
 
+        Route::get('/posts','PostController@index');
+
         Route::get('/dashboard','DashboardController@index');
     }
 );
@@ -42,4 +44,9 @@ Route::group(['middleware' => ['auth','checkRole:admin']], function()
 Route::group(['middleware' => ['auth','checkRole:admin,siswa']], function(){
     Route::get('/dashboard','DashboardController@index');
 });
+
+Route::get('/{slug}',[
+    'uses' => 'SiteController@singlepost',
+    'as' => 'site.single.post'
+]);
     

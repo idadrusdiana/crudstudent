@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\user;
 use App\siswa;
+use App\post;
 
 class SiteController extends Controller
 {
@@ -45,6 +46,12 @@ class SiteController extends Controller
         $siswa  =   Siswa::create($request->all());
 
         return redirect('/terimakasih')->with('sukses','Data Pendaftaran berhasil dikirm');
+    }
+
+    public function singlepost($slug)
+    {
+        $post = Post::where('slug', '=', $slug)->first();
+        return view('sites.singlepost', compact(['post']));
     }
 
 }
