@@ -15,7 +15,7 @@ Route::get('/', 'SiteController@home');
 Route::get('/register', 'SiteController@register');
 Route::post('/postregister', 'SiteController@postregister');
 Route::get('/about', 'SiteController@about');
-Route::get('/terimakasih', 'SiteController@terimakasih');
+Route::get('/terimakasih', 'SiteController@terimakasih')->name('site.terimakasih');
 
 Route::get('/login','AuthController@index')->name('login');
 Route::post('/postlogin','AuthController@postlogin');
@@ -35,14 +35,23 @@ Route::group(['middleware' => ['auth','checkRole:admin']], function()
         Route::get('/siswa/exportpdf','SiswaController@exportPdf');
         Route::get('/guru/{id}/profile', 'GuruController@profile');
 
-        Route::get('/posts','PostController@index');
+        Route::get('/posts','PostController@index')->name('posts.index');
+        Route::get('post/add', [
+            'uses' => 'PostController@add',
+            'as' => 'posts.add'
+        ]);
+        Route::post('post/create', [
+            'uses' => 'PostController@create',
+            'as' => 'post.create'            
+        ]);
+        Route::get('post/{post}/delete', 'PostController@destroy' );
 
         Route::get('/dashboard','DashboardController@index');
     }
 );
 
 Route::group(['middleware' => ['auth','checkRole:admin,siswa']], function(){
-    Route::get('/dashboard','DashboardController@index');
+    Route::get('/dashboard','DashboardController@index')->name('site.dashboard');
 });
 
 Route::get('/{slug}',[

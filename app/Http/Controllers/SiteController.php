@@ -11,7 +11,8 @@ class SiteController extends Controller
 {
     public function home () 
     {
-        return view('sites.home');
+        $posts = Post::all();
+        return view('sites.home', compact(['posts']));
     }
 
     public function about()
@@ -45,7 +46,7 @@ class SiteController extends Controller
         $request->request->add(['user_id' => $user->id]);
         $siswa  =   Siswa::create($request->all());
 
-        return redirect('/terimakasih')->with('sukses','Data Pendaftaran berhasil dikirm');
+        return redirect()->route('site.terimakasih')->with('sukses','Data Pendaftaran berhasil dikirm');
     }
 
     public function singlepost($slug)
