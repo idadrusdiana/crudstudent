@@ -18,11 +18,11 @@
                                 </div>
                             </div>
                             <div class="panel-body">
-                                <table class="table table-hover">
+                                <table class="table table-hover" id="datatable">
                                     <thead>
                                         <tr>
-                                            <th>NAMA DEPAN</th>
-                                            <th>NAMA BELAKANG</th>
+                                            <th>NAMA LENGKAP</th>
+                                            {{-- <th>NAMA BELAKANG</th> --}}
                                             <th>JENIS KELAMIN</th>
                                             <th>AGAMA</th>
                                             <th>ALAMAT</th>
@@ -31,7 +31,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($data_siswa as $siswa)
+                                        {{-- @foreach ($data_siswa as $siswa)
                                         <tr>
                                             <td><a href="/siswa/{{ $siswa->id }}/profile">{{ $siswa->nama_depan }}</a></td>
                                             <td><a href="/siswa/{{ $siswa->id }}/profile">{{ $siswa->nama_belakang}}</a></td>
@@ -44,9 +44,9 @@
                                                 <a href="/siswa/{{ $siswa->id }}/delete" class="btn btn-danger btn-sm delete">Delete</a>
                                             </td>
                                         </tr>                                            
-                                        @endforeach
+                                        @endforeach --}}
                                     </tbody>
-                                </table>
+                                </table>                                
                             </div>
                         </div>
                     </div>
@@ -130,22 +130,40 @@
 
 @section('footer')
     <script>
-        $('.delete').click(function(){
-            var siswa_id = $(this).attr('siswa-id');
-            swal({
-                title: "Yakin ?",
-                text: "Mau dihapus data siswa dengan id "+siswa_id+" ??",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                console.log(willDelete);
-            if (willDelete) {
-                window.location = "/siswa/"+siswa_id+"/delete";
-            }
+        $(document).ready(function() {
+            $('#datatable').DataTable({
+                processing:true,
+                serverside:true,
+                ajax:"{{ route('ajax.get.data.siswa') }}",
+                columns:[
+                    {data:'nama_lengkap', name:'nama_lengkap'},
+                    //{data:'nama_belakang', name:'nama_belakang'},
+                    {data:'jenis_kelamin', name:'jenis_kelamin'},
+                    {data:'agama', name:'agama'},
+                    {data:'alamat', name:'alamat'},
+                    {data:'rata2_nilai', name:'rata2_nilai'},
+                    {data:'aksi', name:'aksi'}
+                ]
+            });
+
+            $('.delete').click(function(){
+                var siswa_id = $(this).attr('siswa-id');
+                swal({
+                    title: "Yakin ?",
+                    text: "Mau dihapus data siswa dengan id "+siswa_id+" ??",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    console.log(willDelete);
+                if (willDelete) {
+                    window.location = "/siswa/"+siswa_id+"/delete";
+                }
+                });
             });
         });
+        
     </script>
 @stop
         

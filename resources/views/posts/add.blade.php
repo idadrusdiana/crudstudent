@@ -54,7 +54,7 @@
     @stop
     
     @section('footer')
-    <script src="/vendor/laravel-filemanager/js/lfm.js"></script>
+    <script src="/vendor/laravel-filemanager/js/lfm.js"></script>    
     <script>
         ClassicEditor
             .create( document.querySelector( '#content' ) )
