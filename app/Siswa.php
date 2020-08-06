@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Siswa extends Model
 {
     protected $table='siswa';
-    protected $fillable = ['nama_depan','nama_belakang','jenis_kelamin','agama','alamat','user_id','avatar'];
+    protected $fillable = ['nama_depan','nama_belakang','jenis_kelamin','agama','alamat','tgl_lahir','user_id','avatar'];
 
     public function getAvatar()
     {

@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth','checkRole:admin']], function()
         Route::get('/siswa/{siswa}/{idmapel}/deletenilai','SiswaController@deletenilai');
         Route::get('/siswa/exportexcel','SiswaController@exportExcel');
         Route::get('/siswa/exportpdf','SiswaController@exportPdf');
+        Route::post('/siswa/import', 'SiswaController@importexcel')->name('siswa.import');
         Route::get('/guru/{id}/profile', 'GuruController@profile');
 
         Route::get('/posts','PostController@index')->name('posts.index');

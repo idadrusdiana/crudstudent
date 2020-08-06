@@ -10,11 +10,14 @@
                             <div class="panel-heading">
                                 <h3 class="panel-title">Data Siswa</h3>                            
                                 <div class="right">
+                                    <a type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#importSiswa">
+                                        Import XLS
+                                    </a> 
                                     <a href="/siswa/exportexcel" class="btn btn-sm btn-primary">Export Excel</a>
                                     <a href="/siswa/exportpdf" class="btn btn-sm btn-primary">Export Pdf</a>
-                                    <button type="button" class="btn" data-toggle="modal" data-target="#exampleModal"><i class="lnr lnr-plus-circle"></i>
+                                    <a type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="lnr lnr-plus-circle"></i>
                                         Tambah Data Siswa
-                                    </button> 
+                                    </a> 
                                 </div>
                             </div>
                             <div class="panel-body">
@@ -126,6 +129,30 @@
     </div>
     </div>
     </div>
+
+    <!-- Modal Import Siswa-->
+    <div class="modal fade" id="importSiswa" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Import Data Siswa</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                {!!Form::open(['route'=>'siswa.import', 'class'=>'form-horizontal', 'enctype'=>'multipart/form-data'])!!}
+
+                {!!Form::file('data_siswa')!!}
+                </div>
+                <div class="modal-footer">                    
+                    <input type="submit" class="btn btn-primary" value="Import">
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @stop
 
 @section('footer')

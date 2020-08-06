@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mapel;
 use App\User;
 use App\Siswa;
+use App\Imports\SiswaImport;
 use Illuminate\Http\Request;
 use App\Exports\SiswaExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -197,5 +198,11 @@ class SiswaController extends Controller
     public function profilesaya()
     {
         return view('siswa.profilesaya');
+    }
+
+    public function importexcel(Request $request)
+    {
+        Excel::import(new SiswaImport, $request->file('data_siswa'));
+        //dd($request->all());
     }
 }
