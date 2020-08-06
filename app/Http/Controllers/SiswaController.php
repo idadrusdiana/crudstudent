@@ -147,14 +147,14 @@ class SiswaController extends Controller
     }
 
     public function addnilai(Request $request, Siswa $siswa)
-    {        
+    {       
         //code untuk mendeteksi bahwa mata peljaran sudah ada
         if($siswa->mapel()->where('mapel_id',$request->mapel)->exists()){
-            return redirect('siswa/'.$idsiswa.'/profile')->with('error','Data mata pelajaran sudah ada.');
+            return redirect('/siswa/'.$siswa->id.'/profile')->with('error','Data mata pelajaran sudah ada.');
         }
         $siswa->mapel()->attach($request->mapel,['nilai' => $request->nilai]);
 
-        return redirect('siswa/'.$idsiswa.'/profile')->with('sukses','Data nilai berhasil ditambahkan');
+        return redirect('/siswa/'.$siswa->id.'/profile')->with('sukses','Data nilai berhasil ditambahkan');
     }
 
     public function deletenilai(Siswa $siswa,$idmapel)
@@ -188,9 +188,14 @@ class SiswaController extends Controller
             return $s->rataRataNilai();
         })
         ->addColumn('aksi', function($s){
-            return '<a href="#" class="btn btn-warning">Edit</a>'; 
+            return '<a href="/siswa/'.$s->id.'/profile/" class="btn btn-warning btn-sm">Profile</a>'; 
         })
         ->rawColumns(['nama_lengkap', 'rata2_nilai', 'aksi'])
         ->toJson();
+    }
+
+    public function profilesaya()
+    {
+        return view('siswa.profilesaya');
     }
 }
