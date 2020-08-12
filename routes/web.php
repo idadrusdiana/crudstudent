@@ -11,9 +11,19 @@
 |
 */
 
+//untuk uji coba email sudah terkirim
+// Route::get('/kirimemail', function() {
+//     \Mail::raw('halo siswa baru', function ($message){
+//         $message->to('idadrusdiana01@gmail.com', 'Idad');
+//         $message->subject('Pendaftaran Siswa');
+//     });
+// });
+
 Route::get('/', 'SiteController@home');
 Route::get('/register', 'SiteController@register');
 Route::post('/postregister', 'SiteController@postregister');
+
+
 Route::get('/about', 'SiteController@about');
 Route::get('/terimakasih', 'SiteController@terimakasih')->name('site.terimakasih');
 

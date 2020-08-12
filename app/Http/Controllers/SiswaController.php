@@ -50,7 +50,7 @@ class SiswaController extends Controller
         $user->name = $request->nama_depan;
         $user->email    = $request->email;
         $user->password = bcrypt('rahasia');
-        $user->remember_token   = str_random(60);
+        $user->remember_token = str_random(60);
         $user->save(); 
 
         //insert ke table Siswa
