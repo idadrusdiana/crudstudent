@@ -37,4 +37,14 @@ class User extends Authenticatable
     {
         return $this->hasOne(Siswa::class);
     }
+
+    public function forum()
+    {
+        return $this->hasmMany(Forum::class);
+    }
+
+    public function komentar()
+    {
+        return $this->hasMany(Komentar::class);
+    }
 }

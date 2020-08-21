@@ -62,7 +62,8 @@ Route::group(['middleware' => ['auth','checkRole:admin']], function()
 );
 
 Route::group(['middleware' => ['auth','checkRole:admin,siswa']], function(){
-    Route::get('/dashboard','DashboardController@index')->name('site.dashboard');
+    Route::get('/dashboard', 'DashboardController@index')->name('site.dashboard');
+    Route::get('/forum', 'ForumController@index');
 });
 
 Route::group(['middleware' => ['auth','checkRole:siswa']], function(){
