@@ -9,8 +9,10 @@
                         <div class="panel">
                             <div class="panel-heading">
                                 <h3 class="panel-title">Forum</h3>                            
-                                <div class="right">                                    
-                                    <a href="#" class="btn btn-sm btn-primary">Add new Forum</a>                                    
+                                <div class="right">                           
+                                    <a type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="lnr lnr-plus-circle"></i>
+                                        Add New Forum
+                                    </a>                                    
                                 </div>
                             </div>
                             <div class="panel-body">                               
@@ -18,15 +20,56 @@
                                     @foreach ($forum as $frm)
                                         <li>
                                             <img src="{{$frm->user->siswa->getAvatar()}}" alt="Avatar" class="img-circle pull-left avatar">
-                                            <p><a href="#">{{ $frm->user->siswa->nama_depan }} : {{ $frm->judul }} <span class="timestamp">{{ $frm->created_at->diffForHumans() }}</span></p>
+                                            <p>
+                                                <a href="/forum/{{ $frm->id }}/view">{{ $frm->user->siswa->nama_depan }} : {{ $frm->judul }}
+                                                    <span class="timestamp">
+                                                        {{ $frm->created_at->diffForHumans() }}
+                                                    </span>
+                                                </a>
+                                            </p>
                                         </li>    
                                     @endforeach                                                                      
                                 </ul>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>               
             </div>
         </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Form Tambah Forum</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        <form action="forum/create" method="POST">
+            {{ csrf_field() }}
+            <div class="form-group{{ $errors->has('judul') ? ' has-error' : ''}}">
+                <label for="exampleInputEmail1">Judul</label>
+                <input type="text" name="judul" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" 
+                placeholder="Judul" value="{{ old('judul') }}">                      
+                @if ($errors->has('judul'))
+                    <span class="help-block">{{ $errors->first('judul') }}</span>                
+                @endif
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Konten</label>
+                <textarea name="konten" class="form-control" id="content" rows="3">{{ old('content') }}</textarea>
+            </div>                       
+    </div>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    </div>
+    </div>
     </div>
 @stop
